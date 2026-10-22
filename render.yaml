@@ -1,0 +1,17 @@
+# Despliegue en Render (https://render.com) con un Blueprint.
+# El plan gratuito usa disco efímero: las partidas guardadas se borran al redesplegar.
+services:
+  - type: web
+    name: pro-manager-studio
+    runtime: python
+    plan: free
+    buildCommand: pip install .
+    startCommand: python -m pro_manager
+    healthCheckPath: /api/v1/salud
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: PM_REPOSITORIO
+        value: json
+      - key: PM_DIRECTORIO_PARTIDAS
+        value: /tmp/partidas_guardadas

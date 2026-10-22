@@ -1,0 +1,261 @@
+/* Pro Manager Studio — interfaz del Director Técnico.
+   Concepto: partido nocturno bajo reflectores (en Hermosillo se juega de noche por el calor).
+   La cancha es el elemento protagonista; todo lo demás es sobrio. */
+
+:root {
+  color-scheme: dark;
+  --noche: #0f1c2e;
+  --panel: #162a41;
+  --panel-alto: #1d3550;
+  --linea: #2b4563;
+  --reflector: #eef2ea;
+  --tenue: #9aabbf;
+  --cancha: #1d6a46;
+  --cancha-franja: #217650;
+  --gis: rgba(238, 242, 234, 0.55);
+  --ocre: #e0a63b;
+  --ocre-oscuro: #b98326;
+  --alerta: #e5484d;
+  --motivado: #4cc38a;
+  --estable: #9fb3c8;
+  --molesto: #e8a33d;
+  --rebelde: #e5484d;
+
+  --titular: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --texto: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radio: 6px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--noche);
+  color: var(--reflector);
+  font-family: var(--texto);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--titular); font-weight: 600; line-height: 1.1; margin: 0 0 .5rem; letter-spacing: .01em; }
+h1 { font-size: 2.6rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+p { margin: 0 0 .75rem; max-width: 70ch; }
+small, .tenue { color: var(--tenue); }
+.num { font-variant-numeric: tabular-nums; }
+
+.saltar { position: absolute; left: -999px; }
+.saltar:focus { left: 1rem; top: 1rem; background: var(--ocre); color: var(--noche); padding: .5rem 1rem; z-index: 10; }
+
+:focus-visible { outline: 2px solid var(--ocre); outline-offset: 2px; }
+
+/* ---------- Botones y controles ---------- */
+button, select, input {
+  font: inherit;
+  color: inherit;
+}
+.boton {
+  background: var(--panel-alto);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: .5rem .9rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.boton:hover { border-color: var(--tenue); }
+.boton:disabled { opacity: .45; cursor: not-allowed; }
+.boton.principal { background: var(--ocre); border-color: var(--ocre); color: #1b1404; }
+.boton.principal:hover { background: #ebb653; }
+.boton.peligro { border-color: var(--alerta); color: #ffb3b5; }
+.boton.pequeno { padding: .25rem .6rem; font-size: .875rem; }
+select, input[type="text"], input[type="number"] {
+  background: var(--noche);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: .45rem .6rem;
+  min-width: 0;
+}
+label { display: grid; gap: .25rem; font-size: .9rem; color: var(--tenue); }
+.fila { display: flex; flex-wrap: wrap; gap: .75rem; align-items: end; }
+
+.segmentado { display: inline-flex; border: 1px solid var(--linea); border-radius: var(--radio); overflow: hidden; }
+.segmentado button {
+  background: transparent; border: 0; padding: .4rem .8rem; cursor: pointer; color: var(--tenue);
+}
+.segmentado button + button { border-left: 1px solid var(--linea); }
+.segmentado button[aria-pressed="true"] { background: var(--ocre); color: #1b1404; font-weight: 600; }
+
+/* ---------- Estructura ---------- */
+.encabezado {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem clamp(1rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--linea);
+  background: linear-gradient(180deg, #13263c, var(--noche));
+}
+.encabezado .club { font-family: var(--titular); font-size: 1.6rem; font-weight: 700; }
+.encabezado .meta { color: var(--tenue); font-size: .95rem; }
+.meta-ascenso { min-width: 220px; }
+.barra { height: 6px; background: var(--linea); border-radius: 3px; overflow: hidden; margin-top: .3rem; }
+.barra > span { display: block; height: 100%; background: var(--ocre); }
+
+.navegacion {
+  display: flex;
+  gap: .25rem;
+  padding: 0 clamp(1rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--linea);
+  overflow-x: auto;
+}
+.navegacion button {
+  background: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  padding: .8rem .9rem .65rem;
+  color: var(--tenue);
+  font-family: var(--titular);
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.navegacion button[aria-current="page"] { color: var(--reflector); border-bottom-color: var(--ocre); }
+.insignia {
+  display: inline-grid; place-items: center;
+  min-width: 1.3rem; height: 1.3rem; padding: 0 .3rem; margin-left: .35rem;
+  border-radius: 999px; background: var(--alerta); color: #fff; font-family: var(--texto); font-size: .75rem;
+}
+
+main { padding: 1.5rem clamp(1rem, 3vw, 2rem) 4rem; max-width: 1240px; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 1.1rem 1.25rem;
+}
+.panel + .panel { margin-top: 1rem; }
+
+.columnas { display: grid; grid-template-columns: minmax(280px, 420px) 1fr; gap: 1.5rem; align-items: start; }
+
+.noticias {
+  border-left: 3px solid var(--ocre);
+  padding: .4rem 0 .4rem 1rem;
+  margin-bottom: 1.5rem;
+}
+.noticias ul { margin: .25rem 0 0; padding-left: 1.1rem; color: var(--tenue); }
+.noticias li:first-child { color: var(--reflector); font-weight: 500; }
+
+.aviso { border-radius: var(--radio); padding: .7rem 1rem; margin: .75rem 0; }
+.aviso.error { background: rgba(229, 72, 77, .14); border: 1px solid rgba(229, 72, 77, .5); }
+.aviso.info { background: rgba(224, 166, 59, .12); border: 1px solid rgba(224, 166, 59, .45); }
+.aviso ul { margin: .3rem 0 0; padding-left: 1.1rem; }
+
+/* ---------- Estado de ánimo ---------- */
+.animo {
+  display: inline-block; padding: .05rem .5rem; border-radius: 999px;
+  font-size: .8rem; font-weight: 600; border: 1px solid currentColor;
+}
+.animo.MOTIVADO { color: var(--motivado); }
+.animo.ESTABLE { color: var(--estable); }
+.animo.MOLESTO { color: var(--molesto); }
+.animo.REBELDE { color: var(--rebelde); background: rgba(229, 72, 77, .12); }
+
+/* ---------- La cancha (elemento protagonista) ---------- */
+.cancha {
+  position: relative;
+  aspect-ratio: 68 / 92;
+  border-radius: var(--radio);
+  background:
+    repeating-linear-gradient(180deg, var(--cancha) 0 10%, var(--cancha-franja) 10% 20%);
+  border: 2px solid var(--gis);
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  padding: 6% 4%;
+  overflow: hidden;
+}
+.cancha::before, .cancha::after { content: ""; position: absolute; pointer-events: none; }
+.cancha::before { /* línea y círculo central */
+  left: 0; right: 0; top: 50%; height: 0; border-top: 2px solid var(--gis);
+}
+.cancha::after {
+  width: 26%; aspect-ratio: 1; left: 37%; top: 50%; transform: translateY(-50%);
+  border: 2px solid var(--gis); border-radius: 50%;
+}
+.area { position: absolute; left: 25%; width: 50%; height: 13%; border: 2px solid var(--gis); }
+.area.arriba { top: -2px; border-top: 0; }
+.area.abajo { bottom: -2px; border-bottom: 0; }
+.linea-cancha { display: flex; justify-content: space-evenly; align-items: center; position: relative; z-index: 1; }
+.ficha { display: grid; justify-items: center; gap: .15rem; width: 18%; text-align: center; }
+.ficha .disco {
+  width: clamp(30px, 8vw, 42px); aspect-ratio: 1; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--reflector); color: var(--noche);
+  font-family: var(--titular); font-weight: 700; font-size: .95rem;
+  box-shadow: 0 0 0 3px var(--anillo, var(--estable));
+}
+.ficha.lesionado .disco { background: #f3c4c5; }
+.ficha .nombre {
+  font-size: .72rem; line-height: 1.1; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, .7);
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ficha .energia { width: 70%; height: 4px; background: rgba(0, 0, 0, .35); border-radius: 2px; overflow: hidden; }
+.ficha .energia span { display: block; height: 100%; background: var(--motivado); }
+.leyenda { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .6rem; font-size: .8rem; }
+
+/* ---------- Tablas ---------- */
+.tabla-contenedor { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+th, td { text-align: left; padding: .45rem .5rem; border-bottom: 1px solid var(--linea); vertical-align: middle; }
+th { color: var(--tenue); font-weight: 500; font-size: .85rem; }
+td.num, th.num { text-align: right; }
+tr.clicable { cursor: pointer; }
+tr.clicable:hover td { background: rgba(255, 255, 255, .03); }
+tr.inhabilitado td { color: var(--tenue); }
+.posicion { font-family: var(--titular); font-weight: 600; color: var(--ocre); }
+.capitan { font-size: .7rem; border: 1px solid var(--ocre); color: var(--ocre); border-radius: 3px; padding: 0 .25rem; margin-left: .3rem; }
+
+/* ---------- Vestuario ---------- */
+.crisis { border-left: 4px solid var(--alerta); }
+.crisis .involucrados { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: .75rem 0 1rem; }
+.cambios { margin: .5rem 0 0; padding-left: 1.1rem; color: var(--tenue); }
+.resuelto { opacity: .8; }
+
+/* ---------- Partido ---------- */
+.marcador {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #0a1422;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+}
+.marcador .equipo { font-family: var(--titular); font-size: clamp(1.1rem, 3vw, 1.6rem); font-weight: 600; }
+.marcador .equipo.visitante { text-align: right; }
+.marcador .equipo.usuario { color: var(--ocre); }
+.marcador .goles { font-family: var(--titular); font-size: clamp(3rem, 9vw, 5rem); font-weight: 700; line-height: 1; text-align: center; }
+.marcador .minuto { display: block; text-align: center; font-family: var(--titular); font-size: 1.2rem; color: var(--motivado); }
+.marcador .minuto.pausado { color: var(--ocre); }
+.controles-partido { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1rem 0; }
+.cronica { list-style: none; margin: 0; padding: 0; max-height: 460px; overflow-y: auto; }
+.cronica li { display: grid; grid-template-columns: 3rem 1fr; gap: .5rem; padding: .4rem 0; border-bottom: 1px solid var(--linea); }
+.cronica .min { font-family: var(--titular); font-weight: 600; color: var(--tenue); }
+.cronica li.GOL { color: var(--ocre); font-weight: 600; }
+.cronica li.critica { color: #ffb3b5; }
+.cronica li.nueva { animation: aparecer .5s ease-out; }
+@keyframes aparecer { from { background: rgba(224, 166, 59, .18); } to { background: transparent; } }
+
+.portada { max-width: 640px; margin: 8vh auto 0; padding: 0 1.25rem; }
+.portada h1 { font-size: clamp(2.6rem, 8vw, 4.2rem); }
+.portada .lema { font-size: 1.15rem; color: var(--tenue); }
+
+@media (max-width: 860px) {
+  .columnas { grid-template-columns: 1fr; }
+  .encabezado { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

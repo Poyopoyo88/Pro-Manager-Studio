@@ -1,0 +1,83 @@
+{
+  "_nota": "Datos ficticios. Cualquier parecido con clubes o personas reales es coincidencia.",
+  "puntos_ascenso": 10,
+  "club": {
+    "id": "halcones",
+    "nombre": "Halcones del Desierto FC",
+    "ciudad": "Hermosillo, Sonora",
+    "presupuesto_fichajes": 3500000,
+    "limite_masa_salarial": 1350000,
+    "reputacion": 45
+  },
+  "plantilla": [
+    {"id": "hal-01", "nombre": "Rafael Ibarra", "posicion": "POR", "edad": 29, "calidad": 76, "fisico": 88, "moral": 68, "personalidad": "PROFESIONAL", "salario": 70000, "valor_mercado": 1800000,
+     "historia": ["Portero titular. Llegó libre hace dos temporadas y se ganó el puesto con atajadas decisivas."]},
+    {"id": "hal-12", "nombre": "Luis Ángel Duarte", "posicion": "POR", "edad": 22, "calidad": 64, "fisico": 90, "moral": 62, "personalidad": "RESERVADO", "salario": 28000, "valor_mercado": 650000,
+     "historia": ["Canterano. Espera su oportunidad sin hacer ruido."]},
+    {"id": "hal-23", "nombre": "Esteban Corral", "posicion": "POR", "edad": 34, "calidad": 60, "fisico": 80, "moral": 70, "personalidad": "LIDER", "salario": 32000, "valor_mercado": 300000,
+     "historia": ["Veterano querido por el grupo; tercer portero y voz del vestuario."]},
+
+    {"id": "hal-04", "nombre": "Rodrigo Montaño", "posicion": "DEF", "edad": 31, "calidad": 78, "fisico": 84, "moral": 72, "personalidad": "LIDER", "salario": 95000, "valor_mercado": 2200000, "es_capitan": true,
+     "historia": ["Capitán y referente. Nacido en Hermosillo, lleva ocho temporadas en el club."]},
+    {"id": "hal-02", "nombre": "Óscar Félix", "posicion": "DEF", "edad": 26, "calidad": 72, "fisico": 88, "moral": 66, "personalidad": "PROFESIONAL", "salario": 60000, "valor_mercado": 1500000,
+     "historia": ["Lateral derecho incansable."]},
+    {"id": "hal-03", "nombre": "Jesús Encinas", "posicion": "DEF", "edad": 24, "calidad": 70, "fisico": 89, "moral": 64, "personalidad": "AMBICIOSO", "salario": 52000, "valor_mercado": 1400000,
+     "historia": ["Lateral izquierdo con ganas de dar el salto a Primera División."]},
+    {"id": "hal-05", "nombre": "Martín Robles", "posicion": "DEF", "edad": 28, "calidad": 69, "fisico": 86, "moral": 60, "personalidad": "TEMPERAMENTAL", "salario": 50000, "valor_mercado": 1100000,
+     "historia": ["Central aguerrido; acumula tarjetas tanto como despejes."]},
+    {"id": "hal-13", "nombre": "Alan Quiroz", "posicion": "DEF", "edad": 21, "calidad": 66, "fisico": 91, "moral": 63, "personalidad": "AMBICIOSO", "salario": 30000, "valor_mercado": 900000,
+     "historia": ["Central joven y rápido, formado en el club."]},
+    {"id": "hal-14", "nombre": "Héctor Bojórquez", "posicion": "DEF", "edad": 30, "calidad": 67, "fisico": 82, "moral": 65, "personalidad": "PROFESIONAL", "salario": 42000, "valor_mercado": 700000,
+     "historia": ["Comodín de la defensa: juega en cualquier puesto de la línea."]},
+    {"id": "hal-15", "nombre": "Daniel Lugo", "posicion": "DEF", "edad": 19, "calidad": 60, "fisico": 92, "moral": 66, "personalidad": "RESERVADO", "salario": 18000, "valor_mercado": 500000,
+     "historia": ["Canterano de 19 años; debutó la temporada pasada."]},
+    {"id": "hal-16", "nombre": "Saúl Medina", "posicion": "DEF", "edad": 27, "calidad": 64, "fisico": 85, "moral": 61, "personalidad": "RESERVADO", "salario": 35000, "valor_mercado": 550000,
+     "historia": ["Lateral suplente, confiable cuando le toca."]},
+
+    {"id": "hal-08", "nombre": "Emiliano Soto", "posicion": "MED", "edad": 25, "calidad": 77, "fisico": 89, "moral": 67, "personalidad": "AMBICIOSO", "salario": 80000, "valor_mercado": 2400000,
+     "historia": ["Mediocentro creativo; el del pase filtrado."]},
+    {"id": "hal-06", "nombre": "Jorge «El Profe» Acuña", "posicion": "MED", "edad": 32, "calidad": 74, "fisico": 78, "moral": 71, "personalidad": "LIDER", "salario": 75000, "valor_mercado": 1200000,
+     "historia": ["Ordena al equipo y aconseja a los jóvenes."]},
+    {"id": "hal-10", "nombre": "Brandon Valdez", "posicion": "MED", "edad": 23, "calidad": 71, "fisico": 88, "moral": 62, "personalidad": "TEMPERAMENTAL", "salario": 55000, "valor_mercado": 1500000,
+     "historia": ["Talento indiscutible con carácter explosivo."]},
+    {"id": "hal-17", "nombre": "Kevin Ochoa", "posicion": "MED", "edad": 22, "calidad": 68, "fisico": 90, "moral": 64, "personalidad": "AMBICIOSO", "salario": 38000, "valor_mercado": 1000000,
+     "historia": ["Volante de ida y vuelta en crecimiento."]},
+    {"id": "hal-18", "nombre": "Ulises Gámez", "posicion": "MED", "edad": 29, "calidad": 67, "fisico": 83, "moral": 65, "personalidad": "PROFESIONAL", "salario": 40000, "valor_mercado": 650000,
+     "historia": ["Cumplidor; nunca se ha quejado de un cambio."]},
+    {"id": "hal-19", "nombre": "Tadeo Aguayo", "posicion": "MED", "edad": 20, "calidad": 63, "fisico": 91, "moral": 63, "personalidad": "RESERVADO", "salario": 20000, "valor_mercado": 600000,
+     "historia": ["Canterano zurdo con buena pegada."]},
+    {"id": "hal-20", "nombre": "Ramón Leyva", "posicion": "MED", "edad": 26, "calidad": 65, "fisico": 85, "moral": 64, "personalidad": "PROFESIONAL", "salario": 34000, "valor_mercado": 550000,
+     "historia": ["Mediocampista defensivo de rotación."]},
+
+    {"id": "hal-09", "nombre": "Iker «El Tanque» Valenzuela", "posicion": "DEL", "edad": 27, "calidad": 86, "fisico": 90, "moral": 55, "personalidad": "TEMPERAMENTAL", "salario": 160000, "valor_mercado": 6500000, "estado_animo": "MOLESTO",
+     "historia": ["Goleador estrella: 21 goles la temporada pasada.", "Los rumores de un traspaso a Primera División lo tienen inquieto."]},
+    {"id": "hal-11", "nombre": "Christian Yocupicio", "posicion": "DEL", "edad": 24, "calidad": 74, "fisico": 88, "moral": 48, "personalidad": "AMBICIOSO", "salario": 62000, "valor_mercado": 1600000, "estado_animo": "MOLESTO",
+     "historia": ["Segundo delantero; se queja de la falta de minutos detrás de Valenzuela."]},
+    {"id": "hal-07", "nombre": "Fernando Celaya", "posicion": "DEL", "edad": 31, "calidad": 68, "fisico": 80, "moral": 66, "personalidad": "PROFESIONAL", "salario": 45000, "valor_mercado": 600000,
+     "historia": ["Extremo veterano, útil para cerrar partidos."]},
+    {"id": "hal-21", "nombre": "Mateo Durazo", "posicion": "DEL", "edad": 19, "calidad": 66, "fisico": 92, "moral": 70, "personalidad": "AMBICIOSO", "salario": 22000, "valor_mercado": 1100000,
+     "historia": ["La joya de la cantera; ojeadores de Primera ya preguntan por él."]},
+    {"id": "hal-22", "nombre": "Joel Moreno", "posicion": "DEL", "edad": 22, "calidad": 63, "fisico": 89, "moral": 63, "personalidad": "RESERVADO", "salario": 24000, "valor_mercado": 450000,
+     "historia": ["Delantero de área, suplente."]}
+  ],
+  "eventos_iniciales": [
+    {
+      "tipo": "CONFLICTO_ENTRE_JUGADORES",
+      "titulo": "Pelea en el entrenamiento: Valenzuela contra el capitán",
+      "descripcion": "Faltan 24 horas para el partido. Iker Valenzuela y el capitán Rodrigo Montaño discuten en el entrenamiento por los rumores de transferencia. Puedes sancionar al goleador enviándolo a la banca para mantener la disciplina, o mediar arriesgándote a perder autoridad.",
+      "protagonista_id": "hal-09",
+      "afectado_id": "hal-04",
+      "severidad": 12
+    }
+  ],
+  "rivales": [
+    {"id": "union-pitic", "nombre": "Unión Pitic", "ciudad": "Hermosillo", "nivel": 64},
+    {"id": "atletico-kino", "nombre": "Atlético Kino", "ciudad": "Bahía de Kino", "nivel": 66},
+    {"id": "coyotes-valle", "nombre": "Coyotes del Valle", "ciudad": "Ciudad Obregón", "nivel": 68},
+    {"id": "deportivo-sierra", "nombre": "Deportivo Sierra Madre", "ciudad": "Nogales", "nivel": 70},
+    {"id": "racing-guaymas", "nombre": "Racing Guaymas", "ciudad": "Guaymas", "nivel": 72}
+  ],
+  "clubes_mercado": ["Tecos de la Costa", "Deportivo Altiplano", "Real Bajío", "Frontera Norte FC", "Atlético Pacífico"],
+  "nombres": ["Abraham", "Adrián", "Alejandro", "Andrés", "Arturo", "Axel", "Bruno", "Carlos", "César", "Diego", "Eduardo", "Emmanuel", "Erick", "Gael", "Gerardo", "Gustavo", "Hugo", "Iván", "Javier", "José", "Juan Pablo", "Leonardo", "Manuel", "Marco", "Miguel", "Nicolás", "Omar", "Pablo", "Ricardo", "Santiago", "Sebastián", "Sergio", "Víctor", "Yahir"],
+  "apellidos": ["Aguilar", "Almada", "Arvizu", "Ayala", "Burruel", "Cázares", "Cota", "Escalante", "Esquer", "Figueroa", "Gastélum", "Grijalva", "Gutiérrez", "Lizárraga", "López", "Madrid", "Mendívil", "Molina", "Navarro", "Noriega", "Ortiz", "Palafox", "Peralta", "Quintero", "Ramírez", "Salazar", "Tapia", "Urías", "Vázquez", "Zazueta"]
+}

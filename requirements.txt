@@ -1,0 +1,4 @@
+# Dependencias para ejecutar la aplicación.
+# Para desarrollo usa: pip install -e ".[dev]"  (o pip install -r requirements-dev.txt)
+fastapi>=0.115
+uvicorn[standard]>=0.30
