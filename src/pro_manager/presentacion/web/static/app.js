@@ -43,6 +43,7 @@ const st = {
   respuestas: {},
   finanzas: null,
   detalle: null,
+  seccionesAbiertas: new Set(["POR"]),
 };
 
 // ------------------------------------------------------------------ utilidades
@@ -392,7 +393,7 @@ DIBUJAR.alineacion = () => {
     st.advertencias.length && !st.aviso ? h("div", { clase: "aviso info" }, "Fuera de posición:", h("ul", {}, st.advertencias.map((a) => h("li", {}, a)))) : null,
     h("div", { clase: "columnas", estilo: "margin-top:1rem" },
       h("div", {}, cancha(titulares), leyendaAnimo()),
-      h("div", { clase: "panel tabla-contenedor" }, tablaConvocatoria(grupos))));
+      h("div", { clase: "panel" }, tablaConvocatoria(grupos))));
 };
 
 function filaConvocatoria(j) {
@@ -408,13 +409,53 @@ function filaConvocatoria(j) {
     h("td", {}, botones));
 }
 
+// Cupos por línea según la formación: "4-2-3-1" → DEF 4, MED 5, DEL 1.
+function cuposFormacion(formacion) {
+  const lineas = formacion.split("-").map(Number);
+  return { POR: 1, DEF: lineas[0], MED: lineas.slice(1, -1).reduce((a, b) => a + b, 0), DEL: lineas[lineas.length - 1] };
+}
+
+function alternarSeccion(pos, abierta) {
+  if (abierta) st.seccionesAbiertas.add(pos);
+  else st.seccionesAbiertas.delete(pos);
+}
+
+function seccionConvocatoria(pos, jugadores, cupo) {
+  const { alin } = st;
+  const titulares = jugadores.filter((j) => alin.titulares.has(j.id)).length;
+  const banca = jugadores.filter((j) => alin.suplentes.has(j.id)).length;
+  const completo = titulares === cupo;
+  const resumen = h("summary", { clase: "seccion-resumen" },
+    h("span", { clase: "seccion-titulo" }, NOMBRE_POSICION[pos]),
+    h("span", { clase: "seccion-total tenue" }, `${jugadores.length} jugadores`),
+    h("span", { clase: `seccion-conteo num${completo ? "" : " incompleto"}`, title: `La ${alin.formacion} pide ${cupo}` },
+      `Titulares ${titulares} de ${cupo}`),
+    h("span", { clase: "seccion-conteo tenue num" }, `Banca ${banca}`));
+  const tabla = h("table", { clase: "tabla-convocatoria" },
+    h("colgroup", {}, h("col", {}), h("col", { estilo: "width:7.5rem" }), h("col", { estilo: "width:4rem" }), h("col", { estilo: "width:10rem" })),
+    h("thead", {}, h("tr", {},
+      h("th", {}, "Jugador"), h("th", {}, "Ánimo"), h("th", { clase: "num" }, "Rend."), h("th", {}, "Convocatoria"))),
+    h("tbody", {}, jugadores.map(filaConvocatoria)));
+  return h("details", {
+    clase: "seccion-posicion",
+    open: st.seccionesAbiertas.has(pos),
+    ontoggle: (e) => alternarSeccion(pos, e.currentTarget.open),
+  }, resumen, h("div", { clase: "tabla-contenedor" }, tabla));
+}
+
 function tablaConvocatoria(grupos) {
-  const encabezados = h("thead", {}, h("tr", {},
-    h("th", {}, "Jugador"), h("th", {}, "Ánimo"), h("th", { clase: "num" }, "Rend."), h("th", {}, "Convocatoria")));
-  const cuerpos = grupos.map(([pos, jugadores]) => h("tbody", {},
-    h("tr", {}, h("th", { colspan: "4", clase: "posicion" }, NOMBRE_POSICION[pos])),
-    jugadores.map(filaConvocatoria)));
-  return h("table", {}, encabezados, cuerpos);
+  const cupos = cuposFormacion(st.alin.formacion);
+  const todas = grupos.every(([pos]) => st.seccionesAbiertas.has(pos));
+  const control = h("div", { clase: "fila", estilo: "justify-content:space-between; align-items:center; margin-bottom:.5rem" },
+    h("h3", { estilo: "margin:0" }, "Convocatoria"),
+    h("button", {
+      clase: "boton pequeno",
+      onclick: () => {
+        st.seccionesAbiertas = todas ? new Set() : new Set(grupos.map(([pos]) => pos));
+        dibujar();
+      },
+    }, todas ? "Contraer todo" : "Expandir todo"));
+  return h("div", {}, control, grupos.map(([pos, jugadores]) => seccionConvocatoria(pos, jugadores, cupos[pos])));
 }
 
 // ------------------------------------------------------------------ Partido (HU-05 / CU-01)
