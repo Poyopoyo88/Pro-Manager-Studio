@@ -145,6 +145,29 @@ class Club:
         self.presupuesto_fichajes -= monto
         self.movimientos.append(MovimientoFinanciero(concepto, -monto, jornada))
 
+    # ------------------------------------------------------------------
+    # Identidad (RN-13)
+    # ------------------------------------------------------------------
+    LONGITUD_NOMBRE_MIN = 3
+    LONGITUD_NOMBRE_MAX = 40
+
+    def renombrar(self, nombre: str, nombres_ocupados: list[str] | tuple = ()) -> None:
+        """Cambia el nombre del club (RN-13).
+
+        Se normalizan los espacios; debe medir entre 3 y 40 caracteres y no puede
+        coincidir (sin distinguir mayúsculas) con el de otro club de la liga.
+        """
+        limpio = " ".join((nombre or "").split())
+        if not self.LONGITUD_NOMBRE_MIN <= len(limpio) <= self.LONGITUD_NOMBRE_MAX:
+            raise DatoInvalidoError(
+                f"El nombre del club debe tener entre {self.LONGITUD_NOMBRE_MIN} y "
+                f"{self.LONGITUD_NOMBRE_MAX} caracteres."
+            )
+        ocupados = {" ".join(n.split()).casefold() for n in nombres_ocupados}
+        if limpio.casefold() in ocupados:
+            raise DatoInvalidoError(f"«{limpio}» ya lo usa otro club de la liga. Elige otro.")
+        self.nombre = limpio
+    
     def ajustar_reputacion(self, delta: int) -> None:
         self.reputacion = acotar(self.reputacion + delta)
 
