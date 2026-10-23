@@ -22,7 +22,9 @@ router = APIRouter(prefix="/partidas", responses=ERRORES)
 @router.post("", status_code=201, response_model=e.PartidaSalida, tags=["Partidas"])
 def crear_partida(entrada: e.CrearPartidaEntrada, ctrl: ControladorCarrera = Depends(dep.carrera)):
     """Crea una nueva carrera: club, rivales, mercado y la primera crisis de vestuario."""
-    return mapeo.partida(ctrl.crear_partida(entrada.nombre_dt, entrada.semilla))
+        return mapeo.partida(
+        ctrl.crear_partida(entrada.nombre_dt, entrada.semilla, entrada.nombre_club)
+    )
 
 
 @router.get("", response_model=list[e.PartidaResumenSalida], tags=["Partidas"])
