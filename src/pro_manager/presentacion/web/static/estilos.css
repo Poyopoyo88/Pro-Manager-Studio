@@ -216,6 +216,29 @@ tr.inhabilitado td { color: var(--tenue); }
 .posicion { font-family: var(--titular); font-weight: 600; color: var(--ocre); }
 .capitan { font-size: .7rem; border: 1px solid var(--ocre); color: var(--ocre); border-radius: 3px; padding: 0 .25rem; margin-left: .3rem; }
 
+/* ---------- Convocatoria por posición (alineación) ---------- */
+.seccion-posicion { border: 1px solid var(--linea); border-radius: var(--radio); background: var(--noche); }
+.seccion-posicion + .seccion-posicion { margin-top: .5rem; }
+.seccion-resumen {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem 1rem;
+  padding: .7rem 1rem; cursor: pointer; list-style: none;
+}
+.seccion-resumen::-webkit-details-marker { display: none; }
+.seccion-resumen::before {
+  content: ""; width: .5rem; height: .5rem; align-self: center;
+  border-right: 2px solid var(--tenue); border-bottom: 2px solid var(--tenue);
+  transform: rotate(-45deg); transition: transform .15s ease;
+}
+.seccion-posicion[open] > .seccion-resumen::before { transform: rotate(45deg); }
+.seccion-posicion[open] > .seccion-resumen { border-bottom: 1px solid var(--linea); }
+.seccion-resumen:hover .seccion-titulo { color: var(--ocre); }
+.seccion-titulo { font-family: var(--titular); font-size: 1.2rem; font-weight: 600; margin-right: auto; }
+.seccion-total, .seccion-conteo { font-size: .875rem; }
+.seccion-conteo.incompleto { color: var(--molesto); }
+.seccion-posicion .tabla-contenedor { padding: 0 .5rem .4rem; }
+.tabla-convocatoria { table-layout: fixed; min-width: 520px; }
+.tabla-convocatoria td:first-child { overflow-wrap: anywhere; }
+
 /* ---------- Vestuario ---------- */
 .crisis { border-left: 4px solid var(--alerta); }
 .crisis .involucrados { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: .75rem 0 1rem; }
