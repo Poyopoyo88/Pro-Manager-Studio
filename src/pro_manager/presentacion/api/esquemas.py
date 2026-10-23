@@ -30,6 +30,13 @@ class ErrorSalida(BaseModel):
 
 class CrearPartidaEntrada(BaseModel):
     nombre_dt: str = Field(min_length=1, max_length=60, examples=["Profe Ramírez"])
+        nombre_club: str | None = Field(
+        default=None,
+        max_length=60,
+        examples=["Coyotes de Sonora"],
+        description="Opcional: nombre de tu club (3 a 40 caracteres). Si se omite, "
+        "se usa «Halcones del Desierto FC».",
+    )
     semilla: int | None = Field(
         default=None, ge=1, description="Opcional: misma semilla y mismas acciones = misma partida."
     )
