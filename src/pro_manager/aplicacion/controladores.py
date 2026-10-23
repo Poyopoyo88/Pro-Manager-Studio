@@ -67,10 +67,15 @@ class ControladorCarrera(_ControladorBase):
         super().__init__(repositorio)
         self.datos = datos
 
-    def crear_partida(self, nombre_dt: str, semilla: int | None = None) -> Partida:
+        def crear_partida(
+        self, nombre_dt: str, semilla: int | None = None, nombre_club: str | None = None
+    ) -> Partida:
         semilla = semilla if semilla is not None else random.SystemRandom().randint(1, 10**9)
         rng = random.Random(semilla)
         club = self.datos.crear_club_usuario()
+        rivales = self.datos.crear_rivales(rng)
+        if nombre_club is not None:
+            club.renombrar(nombre_club, [r.nombre for r in rivales])
         rivales = self.datos.crear_rivales(rng)
         partida = Partida(
             id=uuid.uuid4().hex[:12],
