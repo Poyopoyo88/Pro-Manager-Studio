@@ -44,6 +44,9 @@ const st = {
   finanzas: null,
   detalle: null,
   seccionesAbiertas: new Set(["POR"]),
+  borrador: { dt: "", club: "" },
+};
+const CLUB_POR_DEFECTO = "Halcones del Desierto FC";
 };
 
 // ------------------------------------------------------------------ utilidades
@@ -154,36 +157,28 @@ async function iniciar() {
 async function portada() {
   let guardadas = [];
   try { guardadas = await api("/partidas"); } catch { /* el servidor responderá al crear */ }
-  const entrada = h("input", { type: "text", id: "nombre-dt", required: true, maxlength: "60", autocomplete: "name", placeholder: "Por ejemplo: Profe Ramírez" });
+    const entrada = h("input", { type: "text", id: "nombre-dt", required: true, maxlength: "60", autocomplete: "name", placeholder: "Por ejemplo: Profe Ramírez", value: st.borrador.dt });
+  const entradaClub = h("input", { type: "text", id: "nombre-club", minlength: "3", maxlength: "40", autocomplete: "off", placeholder: CLUB_POR_DEFECTO, value: st.borrador.club });
   const formulario = h("form", {
     clase: "fila",
     onsubmit: async (ev) => {
       ev.preventDefault();
+      st.borrador = { dt: entrada.value.trim(), club: entradaClub.value.trim() };
+      const cuerpo = { nombre_dt: st.borrador.dt };
+      if (st.borrador.club) cuerpo.nombre_club = st.borrador.club; // vacío = nombre por defecto
       try {
-        const partida = await api("/partidas", { metodo: "POST", cuerpo: { nombre_dt: entrada.value.trim() } });
+        const partida = await api("/partidas", { metodo: "POST", cuerpo });
+        st.borrador = { dt: "", club: "" };
         abrirPartida(partida.id);
       } catch (error) {
         avisarError(error);
         portada();
       }
     },
-  }, h("label", {}, "Nombre del Director Técnico", entrada), h("button", { clase: "boton principal", type: "submit" }, "Empezar carrera"));
-
-  raiz.replaceChildren(h("div", { clase: "portada", id: "contenido" },
-    h("h1", {}, "Pro Manager Studio"),
-    h("p", { clase: "lema" },
-      "Toma el banquillo de los Halcones del Desierto FC. Cinco jornadas para ascender, un vestuario con carácter y decisiones que se toman en segundos."),
-    nodoAviso(),
-    formulario,
-    guardadas.length ? h("section", { estilo: "margin-top:2.5rem" },
-      h("h2", {}, "Continuar una carrera"),
-      h("div", { clase: "tabla-contenedor" }, h("table", {},
-        h("thead", {}, h("tr", {}, h("th", {}, "DT"), h("th", {}, "Jornada"), h("th", { clase: "num" }, "Puntos"), h("th", {}, ""))),
-        h("tbody", {}, guardadas.map((p) => h("tr", {},
-          h("td", {}, p.nombre_dt), h("td", { clase: "num" }, p.jornada), h("td", { clase: "num" }, p.puntos),
-          h("td", {}, h("button", { clase: "boton pequeno", onclick: () => abrirPartida(p.id) }, "Continuar")))))))) : null));
-  st.aviso = null;
-}
+  },
+    h("label", {}, "Nombre del Director Técnico", entrada),
+    h("label", {}, "Nombre de tu club (opcional)", entradaClub),
+    h("button", { clase: "boton principal", type: "submit" }, "Empezar carrera"));
 
 function abrirPartida(id) {
   st.partidaId = id;
